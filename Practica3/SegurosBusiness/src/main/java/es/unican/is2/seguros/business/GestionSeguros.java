@@ -9,9 +9,13 @@ import es.unican.is2.seguros.common.ISegurosDAO;
 import es.unican.is2.seguros.common.OperacionNoValida;
 import es.unican.is2.seguros.common.Seguro;
 
-public class GestionSeguros implements IClientesDAO, ISegurosDAO, IInfoSeguros, IGestionClientes, IGestionSeguros{
+public class GestionSeguros extends Cliente implements IClientesDAO, ISegurosDAO, IInfoSeguros, IGestionClientes, IGestionSeguros{
 
+	/**
+	 * 
+	 */
 	public GestionSeguros(IClientesDAO daoContribuyentes, ISegurosDAO daoVehiculos) {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +25,6 @@ public class GestionSeguros implements IClientesDAO, ISegurosDAO, IInfoSeguros, 
 	}
 
 	public Cliente cliente(String dni) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
