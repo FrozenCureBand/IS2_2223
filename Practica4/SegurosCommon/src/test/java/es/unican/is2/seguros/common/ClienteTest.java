@@ -2,63 +2,28 @@ package es.unican.is2.seguros.common;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class ClienteTest {
 
 	@Test
-	public void testClienteListOfSeguroStringStringBoolean() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCliente() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetSeguros() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetSeguros() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetNombre() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetNombre() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetDni() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetDni() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMinusvalia() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMinusvalia() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testTotalSeguros() {
-		fail("Not yet implemented");
-	}
 
+		Seguro seguro1 = new Seguro(75, "PLL9597", Cobertura.TODORIESGO, LocalDate.of(2022, 1, 1));
+        Seguro seguro2 = new Seguro(80, "5678BBB", Cobertura.TERCEROS, LocalDate.of(2022, 1, 1));
+	    
+	    List<Seguro> seguros = new ArrayList<Seguro>();
+	    seguros.add(seguro1);
+	    seguros.add(seguro2);
+	    
+	    Cliente cliente = new Cliente(seguros, "Andrés Ortega", "12345678S", true);
+	    
+	    double totalSeguros = cliente.totalSeguros();
+	    
+	    assertEquals(221.4, totalSeguros, 0.001);
+	}
 }
