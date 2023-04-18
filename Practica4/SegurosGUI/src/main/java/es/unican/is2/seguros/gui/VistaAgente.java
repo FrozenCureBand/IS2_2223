@@ -51,7 +51,7 @@ public class VistaAgente extends JFrame {
 		this.info = info;
 		init();
 	}
-	
+
 	public void init() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 441, 341);

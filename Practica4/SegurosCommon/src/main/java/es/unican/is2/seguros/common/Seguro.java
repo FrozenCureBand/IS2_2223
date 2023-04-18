@@ -20,6 +20,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "Seguro")
 public class Seguro {
 	
+	/**
+	 * @param potencia
+	 * @param matricula
+	 * @param cobertura
+	 * @param fechaContratacion
+	 */
+	public Seguro(int potencia, String matricula, Cobertura cobertura, LocalDate fechaContratacion) {
+		super();
+		this.potencia = potencia;
+		this.matricula = matricula;
+		this.cobertura = cobertura;
+		this.fechaContratacion = fechaContratacion;
+	}
+
 	private static final double PORCENTAJE_TRAMO_1 = 0.95;
 	private static final double PORCENTAJE_TRAMO_2 = 0.80;
 	private static final int INICIO_TRAMO_1= 90;
@@ -93,7 +107,51 @@ public class Seguro {
      * @return
      */
     public double precio() {
-    	return 0;
+    	
+    	double precioBase;
+        double descuentoAnho;
+
+        // Calculamos el precio base según la potencia y la cobertura
+        switch (cobertura) {
+            case TERCEROS:
+                precioBase = potencia * 1.2;
+                break;
+            case TODORIESGO:
+                precioBase = potencia * 2;
+                break;
+            case TERCEROSLUNAS:
+                precioBase = potencia * 1.5;
+                break;
+            default:
+                precioBase = 0;
+        }
+
+        // Aplicamos descuentos según la fecha de contratación
+        int anhoContratacion = fechaContratacion.getYear();
+        int anhoActual = LocalDate.now().getYear();
+        int diferenciaAnhos = anhoActual - anhoContratacion;
+        if (diferenciaAnhos == 0) {
+            // Descuento del 20% en el primer año
+            descuentoAnho = DESCUENTO_PRIMER_ANHO;
+        } else if (diferenciaAnhos == 1) {
+            // Descuento del 10% en el segundo año
+            descuentoAnho = DESCUENTO_SEGUNDO_ANHO;
+        } else {
+            // Sin descuento a partir del tercer año
+            descuentoAnho = 1;
+        }
+
+        // Aplicamos descuentos según la potencia del coche
+        if (potencia >= INICIO_TRAMO_1 && potencia <= FIN_TRAMO_1) {
+            precioBase *= PORCENTAJE_TRAMO_1;
+        } else if (potencia > FIN_TRAMO_1) {
+            precioBase *= PORCENTAJE_TRAMO_2;
+        }
+
+        // Aplicamos los descuentos
+        double precioFinal = precioBase * descuentoAnho;
+
+        return precioFinal;
     }
 
 }

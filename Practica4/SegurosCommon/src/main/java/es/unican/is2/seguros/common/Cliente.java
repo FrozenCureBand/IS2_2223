@@ -19,6 +19,20 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name="Cliente")
 public class Cliente {
 
+	/**
+	 * @param seguros
+	 * @param nombre
+	 * @param dni
+	 * @param minusvalia
+	 */
+	public Cliente(List<Seguro> seguros, String nombre, String dni, boolean minusvalia) {
+		super();
+		this.seguros = seguros;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.minusvalia = minusvalia;
+	}
+
 	@XmlElement(required=true, name="seguro")
     private List<Seguro> seguros = new LinkedList<Seguro>();
     
@@ -96,7 +110,11 @@ public class Cliente {
      * todos los seguros a su nombre
      */
     public double totalSeguros() {
-    	return 0;
+    	double total = 0;
+        for (Seguro seguro : seguros) {
+            total += seguro.precio();
+        }
+        return total;
     }
 
 }
